@@ -1,13 +1,16 @@
 const router = require('express').Router();
-/* const auth = require('../middlewares/auth');
+const auth = require('../middlewares/auth');
+const deleteArticle = require('../middlewares/deleteArticle');
+const { celebrate, Joi } = require('celebrate');
+
 const {
-  deleteArticle,
+  deleteArticleById,
   createArticle,
   getSavedArticles,
-} = require('../controllers/articles'); */
+} = require('../controllers/articles');
 
-/* router.get('/articles', auth, getSavedArticles);
 router.post('/articles', auth, createArticle);
-router.delete('/articles/:articleId', auth, deleteArticle);
- */
+router.get('/articles', auth, getSavedArticles);
+router.delete('/articles/:articleId', auth, deleteArticle, deleteArticleById);
+
 module.exports = router;

@@ -7,7 +7,7 @@ const rateLimit = require('express-rate-limit');
 const NotFoundError = require('./errors/not-found-err');
 
 const userRoutes = require('./routes/users');
-/* const articlesRoutes = require('./routes/articles'); */
+const articlesRoutes = require('./routes/articles');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // in 15 minutes
@@ -18,13 +18,13 @@ mongoose.connect('mongodb://localhost:27017/news', {
   useNewUrlParser: true,
 });
 
-/* mongoose.connection
+mongoose.connection
   .once('open', () => {
     console.log('Connected');
   })
   .on('error', (error) => {
     console.log('Your Error', error);
-  }); */
+  });
 
 const { PORT = 3000 } = process.env;
 
@@ -48,7 +48,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-/* app.use('/', articlesRoutes); */
+app.use('/', articlesRoutes);
 app.use('/', userRoutes);
 app.use((req, res, next) => {
   next(new NotFoundError('Requested resource not found'));
