@@ -1,3 +1,3 @@
 # news-explorer-api
 
-# api.news.students.nomoreparties.sbs
+# https://api.news.students.nomoreparties.sbs/
