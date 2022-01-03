@@ -48,11 +48,12 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use('/', articlesRoutes);
 app.use('/', userRoutes);
-/* app.use((req, res, next) => {
+app.use('/', articlesRoutes);
+
+app.use((req, res, next) => {
   next(new NotFoundError('Requested resource not found'));
-}); */
+});
 app.use((err, req, res, next) => {
   res.status(err.statusCode).send({ message: err.message });
 });

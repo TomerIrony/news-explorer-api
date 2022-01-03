@@ -58,6 +58,7 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
+  console.log(email);
   User.findOne({ email })
     .select('+password')
     .then((user) => {
