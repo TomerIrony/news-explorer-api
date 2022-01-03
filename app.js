@@ -50,9 +50,9 @@ app.get('/crash-test', () => {
 
 app.use('/', articlesRoutes);
 app.use('/', userRoutes);
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   next(new NotFoundError('Requested resource not found'));
-});
+}); */
 app.use((err, req, res, next) => {
   res.status(err.statusCode).send({ message: err.message });
 });
