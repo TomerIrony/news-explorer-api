@@ -29,6 +29,10 @@ module.exports.getUser = (req, res, next) => {
 module.exports.createUser = (req, res, next) => {
   if (req.body.password === undefined) {
     throw new ValdiationError('didnt meet the requirements');
+  } else if (req.body.name === undefined) {
+    throw new ValdiationError('didnt meet the requirements');
+  } else if (req.body.email === undefined) {
+    throw new ValdiationError('didnt meet the requirements');
   }
   bcrypt.hash(req.body.password, 10).then((hash) => {
     User.create({
