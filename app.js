@@ -18,13 +18,13 @@ mongoose.connect('mongodb://localhost:27017/news', {
   useNewUrlParser: true,
 });
 
-mongoose.connection
+/* mongoose.connection
   .once('open', () => {
     console.log('Connected');
   })
   .on('error', (error) => {
     console.log('Your Error', error);
-  });
+  }); */
 
 const { PORT = 3000 } = process.env;
 

@@ -8,8 +8,9 @@ module.exports = (req, res, next) => {
     .then((article) => {
       if (article.owner.toString() === req.user._id) {
         next();
+      } else {
+        throw new AuthorizationError('Authorization Required');
       }
-      throw new AuthorizationError('Authorization Required');
     })
     .catch((err) => {
       if (err.statusCode === 401) {

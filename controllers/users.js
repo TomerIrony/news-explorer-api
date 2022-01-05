@@ -41,14 +41,18 @@ module.exports.createUser = (req, res, next) => {
       name: req.body.name,
     })
       .then((user) => {
+        // eslint-disable-next-line no-unused-vars
         const { password, ...resoponseUser } = user._doc;
-        console.log(password);
         res.send(resoponseUser);
       })
       .catch((err) => {
         if (err.code === 11000) {
           throw new ConflitError('email is already in use');
         } else {
+          if (err.name === 'ValidationError') {
+            throw new ValdiationError('didnt meet the requirements');
+          }
+
           throw new ServerError('Server Error');
         }
       })
@@ -58,19 +62,22 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email);
   User.findOne({ email })
     .select('+password')
     .then((user) => {
       if (!user) {
-        throw new AuthorizationError('UNAUTHORIZED REQUEST');
+        throw new NotFoundError('Inncorrect password or email');
       }
       bcrypt.compare(password, user.password).then((bycrpytres) => {
         if (bycrpytres) {
           return res.send({
-            token: jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-              expiresIn: '7d',
-            }),
+            token: jwt.sign(
+              { _id: user._id },
+              process.env.JWT_SECRET || 'dev',
+              {
+                expiresIn: '7d',
+              }
+            ),
           });
         }
         throw new AuthorizationError('UNAUTHORIZED REQUEST');
@@ -79,7 +86,10 @@ module.exports.login = (req, res, next) => {
     .catch((err) => {
       if (err.statusCode === 404) {
         throw new NotFoundError('Inncorrect password or email');
+      } else if (err.statusCode === 401) {
+        throw new AuthorizationError('UNAUTHORIZED REQUEST');
       }
+
       throw new ServerError('Server Error');
     })
     .catch(next);

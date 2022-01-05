@@ -6,9 +6,18 @@ const ServerError = require('../errors/server-err');
 
 module.exports.createArticle = (req, res, next) => {
   const owner = req.user._id;
+  // eslint-disable-next-line object-curly-newline
   const { keyword, title, date, source, link, image } = req.body;
 
-  Article.create({ keyword, title, date, source, link, image, owner })
+  Article.create({
+    keyword,
+    title,
+    date,
+    source,
+    link,
+    image,
+    owner,
+  })
     .then((user) => {
       res.send(user);
     })
@@ -35,7 +44,6 @@ module.exports.deleteArticleById = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        console.log(err);
         throw new CastError('Invalid id');
       } else if (err.name === 'DocumentNotFoundError') {
         throw new NotFoundError('No Card found with that id');
