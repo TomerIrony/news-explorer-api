@@ -80,12 +80,12 @@ module.exports.login = (req, res, next) => {
             ),
           });
         }
-        throw new AuthorizationError('UNAUTHORIZED REQUEST');
+        res.status(401).send('Inncorrect password or email');
       });
     })
     .catch((err) => {
       if (err.statusCode === 404) {
-        throw new NotFoundError('Inncorrect password or email');
+        throw new AuthorizationError('Inncorrect password or email');
       } else if (err.statusCode === 401) {
         throw new AuthorizationError('UNAUTHORIZED REQUEST');
       }
