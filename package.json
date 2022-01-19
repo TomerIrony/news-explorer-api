@@ -1,0 +1,30 @@
+{
+  "name": "news-explorer-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "set PORT=3000 && node app.js",
+    "lint": "npx eslint .",
+    "dev": "set PORT=3000 && nodemon app.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "celebrate": "^15.0.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.5.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.13",
+    "validator": "^13.7.0"
+  }
+}
