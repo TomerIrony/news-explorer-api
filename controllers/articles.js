@@ -60,14 +60,14 @@ module.exports.deleteArticleById = (req, res, next) => {
  */
 
 module.exports.getArticles = (req, res, next) => {
-  let currentDateObj = new Date();
+  const currentDateObj = new Date();
   const currentDateJson = JSON.stringify(currentDateObj).split('T');
   const currentDate = currentDateJson[0].split('"')[1];
   const d = new Date();
   d.setDate(d.getDate() - 7);
   const myJson = JSON.stringify(d).split('T');
   const date = myJson[0].split('"')[1];
-
+  console.log(req.body.q);
   fetch(
     `https://newsapi.org/v2/everything?q=${req.body.q}&from=${date}&to=${currentDate}&pageSize=100&sortBy=popularity&apiKey=bcc7bd2b43094a758403e56b5af1e479`,
     {
