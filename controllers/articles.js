@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const Article = require('../models/acrticle');
 const NotFoundError = require('../errors/not-found-err');
 const ValdiationError = require('../errors/validation-err');
@@ -53,3 +55,44 @@ module.exports.deleteArticleById = (req, res, next) => {
     })
     .catch(next);
 };
+
+/* https://newsapi.org/v2/everything?q=Apple&from=2022-01-18&sortBy=popularity &apiKey=bcc7bd2b43094a758403e56b5af1e479
+ */
+
+module.exports.getArticles = (req, res, next) => {
+  let currentDateObj = new Date();
+  const currentDateJson = JSON.stringify(currentDateObj).split('T');
+  const currentDate = currentDateJson[0].split('"')[1];
+  let d = new Date();
+  d.setDate(d.getDate() - 7);
+  const myJson = JSON.stringify(d).split('T');
+  const date = myJson[0].split('"')[1];
+  console.log(date);
+  fetch(
+    `https://newsapi.org/v2/everything?q=${req.body.q}&from=${date}&to=${currentDate}&pageSize=100&sortBy=popularity&apiKey=bcc7bd2b43094a758403e56b5af1e479`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  )
+    .then((response) => {
+      if (response) {
+        return response.json();
+      }
+    })
+    .then((text) => {
+      res.status(200).send(text);
+    });
+};
+
+/* getUser(JWT) {
+  return fetch(`${this._url}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${JWT}`,
+    },
+  }).then(this._checkResponse);
+} */

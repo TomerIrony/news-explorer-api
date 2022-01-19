@@ -7,6 +7,7 @@ const {
   deleteArticleById,
   createArticle,
   getSavedArticles,
+  getArticles,
 } = require('../controllers/articles');
 
 router.post(
@@ -26,6 +27,7 @@ router.post(
 );
 router.get('/articles', auth, getSavedArticles);
 router.delete('/articles/:articleId', auth, deleteArticle, deleteArticleById);
+router.get('/everything', getArticles);
 
 router.use(errors());
 
