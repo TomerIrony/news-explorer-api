@@ -63,11 +63,11 @@ module.exports.getArticles = (req, res, next) => {
   let currentDateObj = new Date();
   const currentDateJson = JSON.stringify(currentDateObj).split('T');
   const currentDate = currentDateJson[0].split('"')[1];
-  let d = new Date();
+  const d = new Date();
   d.setDate(d.getDate() - 7);
   const myJson = JSON.stringify(d).split('T');
   const date = myJson[0].split('"')[1];
-  console.log(date);
+
   fetch(
     `https://newsapi.org/v2/everything?q=${req.body.q}&from=${date}&to=${currentDate}&pageSize=100&sortBy=popularity&apiKey=bcc7bd2b43094a758403e56b5af1e479`,
     {
