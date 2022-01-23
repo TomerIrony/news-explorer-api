@@ -7,7 +7,7 @@ const {
   deleteArticleById,
   createArticle,
   getSavedArticles,
-  getArticles,
+  /* getArticles, */
 } = require('../controllers/articles');
 
 router.post(
@@ -16,6 +16,7 @@ router.post(
     body: Joi.object().keys({
       keyword: Joi.string(),
       title: Joi.string(),
+      text: Joi.string(),
       date: Joi.string(),
       source: Joi.string(),
       link: Joi.string(),
@@ -27,8 +28,8 @@ router.post(
 );
 router.get('/articles', auth, getSavedArticles);
 router.delete('/articles/:articleId', auth, deleteArticle, deleteArticleById);
-router.get('/everything', getArticles);
-
+/* router.post('/everything', getArticles);
+ */
 router.use(errors());
 
 module.exports = router;

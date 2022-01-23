@@ -68,6 +68,7 @@ module.exports.login = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Inncorrect password or email');
       }
+      // eslint-disable-next-line consistent-return
       bcrypt.compare(password, user.password).then((bycrpytres) => {
         if (bycrpytres) {
           return res.send({

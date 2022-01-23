@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+/* const fetch = require('node-fetch'); */
 
 const Article = require('../models/acrticle');
 const NotFoundError = require('../errors/not-found-err');
@@ -9,11 +9,12 @@ const ServerError = require('../errors/server-err');
 module.exports.createArticle = (req, res, next) => {
   const owner = req.user._id;
   // eslint-disable-next-line object-curly-newline
-  const { keyword, title, date, source, link, image } = req.body;
+  const { keyword, title, text, date, source, link, image } = req.body;
 
   Article.create({
     keyword,
     title,
+    text,
     date,
     source,
     link,
@@ -56,10 +57,7 @@ module.exports.deleteArticleById = (req, res, next) => {
     .catch(next);
 };
 
-/* https://newsapi.org/v2/everything?q=Apple&from=2022-01-18&sortBy=popularity &apiKey=bcc7bd2b43094a758403e56b5af1e479
- */
-
-module.exports.getArticles = (req, res, next) => {
+/* module.exports.getArticles = (req, res, next) => {
   const currentDateObj = new Date();
   const currentDateJson = JSON.stringify(currentDateObj).split('T');
   const currentDate = currentDateJson[0].split('"')[1];
@@ -67,9 +65,9 @@ module.exports.getArticles = (req, res, next) => {
   d.setDate(d.getDate() - 7);
   const myJson = JSON.stringify(d).split('T');
   const date = myJson[0].split('"')[1];
-  console.log(req.body.q);
+
   fetch(
-    `https://newsapi.org/v2/everything?q=${req.body.q}&from=${date}&to=${currentDate}&pageSize=100&sortBy=popularity&apiKey=bcc7bd2b43094a758403e56b5af1e479`,
+    `https://newsapi.org/v2/everything?q=${req.body.q}&from=${date}&to=${currentDate}&pageSize=100&sortBy=popularity&apiKey=552795a1a87c40fab7a83f892eb04f0b`,
     {
       method: 'GET',
       headers: {
@@ -77,6 +75,7 @@ module.exports.getArticles = (req, res, next) => {
       },
     }
   )
+
     .then((response) => {
       if (response) {
         return response.json();
@@ -84,8 +83,11 @@ module.exports.getArticles = (req, res, next) => {
     })
     .then((text) => {
       res.status(200).send(text);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
-};
+}; */
 
 /* getUser(JWT) {
   return fetch(`${this._url}/users/me`, {

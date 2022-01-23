@@ -11,7 +11,7 @@ const articlesRoutes = require('./routes/articles');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // in 15 minutes
-  max: 100, // you can make a maximum of 100 requests from one IP
+  max: 1000, // you can make a maximum of 100 requests from one IP
 });
 
 mongoose.connect('mongodb://localhost:27017/news', {
