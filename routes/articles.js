@@ -12,9 +12,13 @@ const {
 router.post(
   '/articles',
   celebrate({
+    headers: Joi.object().keys({
+     
+    }).options({ allowUnknown: true }),
     body: Joi.object().keys({
       keyword: Joi.string(),
       title: Joi.string(),
+      text: Joi.string(),
       date: Joi.string(),
       source: Joi.string(),
       link: Joi.string(),

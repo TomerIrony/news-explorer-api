@@ -7,11 +7,12 @@ const ServerError = require('../errors/server-err');
 module.exports.createArticle = (req, res, next) => {
   const owner = req.user._id;
   // eslint-disable-next-line object-curly-newline
-  const { keyword, title, date, source, link, image } = req.body;
+  const { keyword, title, text, date, source, link, image } = req.body;
 
   Article.create({
     keyword,
     title,
+    text, 
     date,
     source,
     link,
